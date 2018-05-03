@@ -5,7 +5,7 @@ import git
 
 # ##############################################################################################################
 #                                                                                                              #
-# Python script to check for a new build off your HomeAssistant config, pull repo and restart docker container #
+# Python script to check for a new build of your HomeAssistant config, pull repo and restart docker container #
 #                                                                                                              #
 # Create a Travis access token with the following scopes:                                                      #
 # read:org                                                                                                     #
