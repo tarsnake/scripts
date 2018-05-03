@@ -38,14 +38,9 @@ cli = Client(base_url='unix://var/run/docker.sock')
 
 build_status = t.build(repo.last_build_id).state
 latest_build = t.build(repo.last_build_id).number
+initial_build = '0'
 
 # config end
-
-cli = Client(base_url='unix://var/run/docker.sock')
-
-build_status = t.build(repo.last_build_id).state
-latest_build = t.build(repo.last_build_id).number
-initial_build = '0'
 
 # read latest buildnumber from file, if file does not exist create it with buildnumber = 0
 try:
