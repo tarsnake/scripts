@@ -41,7 +41,6 @@ latest_build = t.build(repo.last_build_id).number
 
 # config end
 
-t = TravisPy.github_auth(github_token)
 cli = Client(base_url='unix://var/run/docker.sock')
 
 build_status = t.build(repo.last_build_id).state
