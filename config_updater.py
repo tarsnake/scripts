@@ -41,6 +41,13 @@ latest_build = t.build(repo.last_build_id).number
 
 # config end
 
+t = TravisPy.github_auth(github_token)
+cli = Client(base_url='unix://var/run/docker.sock')
+
+build_status = t.build(repo.last_build_id).state
+latest_build = t.build(repo.last_build_id).number
+initial_build = '0'
+
 # read latest buildnumber from file, if file does not exist create it with buildnumber = 0
 try:
     fo = open(file, 'r+')
@@ -48,10 +55,12 @@ try:
     fo.close()
 except:
     fo = open(file, 'wb')
-    fo.write(0 + '\n')
+    fo.write(initial_build + '\n')
+    fo.close()
+    current_build = initial_build
 
 # check buildnumber and status against current buildnumber, pull, restart container or do nothing
-if int(current_build) < int(latest_build) and build_status = 'passed':
+if int(current_build) < int(latest_build) and build_status == 'passed':
     print('Current build is: ' + current_build + 'Newer build '+ latest_build + ' available, pulling reposistory')
     g.pull()
     print('Restarting container ' + ha_container_name)
