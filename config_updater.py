@@ -1,11 +1,11 @@
 from docker import Client
-from travispy import TravisPy
 import os
 import git
+import requests
 
 # ##############################################################################################################
 #                                                                                                              #
-# Python script to check for a new build of your HomeAssistant config, pull repo and restart docker container #
+# Python script to check for a new build off your HomeAssistant config, pull repo and restart docker container #
 #                                                                                                              #
 # Create a Travis access token with the following scopes:                                                      #
 # read:org                                                                                                     #
@@ -21,26 +21,23 @@ import git
 file = '/tmp/last_build.txt'
 
 # git
-git_dir = '/home/hass/home-assistant'
+git_dir = '<your home-assistant config dir'
 g = git.cmd.Git(git_dir)
 
 # travis
-github_token = '<your github token>'
-t = TravisPy.github_auth(github_token)
-repo = t.repo('<your github repo name>')
+github_token = '<github token>'
+travis_url = 'https://api.travis-ci.org/repos/your/repo/builds'
 
 # docker
-ha_container_name = '<home-assistant containername>'
-# config end
-
-t = TravisPy.github_auth(github_token)
+ha_container_name = 'home-assistant'
 cli = Client(base_url='unix://var/run/docker.sock')
-
-build_status = t.build(repo.last_build_id).state
-latest_build = t.build(repo.last_build_id).number
-initial_build = '0'
-
 # config end
+
+r = requests.get(url = travis_url)
+build_info = (r.json()[0])
+build_status = build_info['result']
+latest_build = build_info['number']
+initial_build = '0'
 
 # read latest buildnumber from file, if file does not exist create it with buildnumber = 0
 try:
@@ -54,7 +51,7 @@ except:
     current_build = initial_build
 
 # check buildnumber and status against current buildnumber, pull, restart container or do nothing
-if int(current_build) < int(latest_build) and build_status == 'passed':
+if int(current_build) < int(latest_build) and build_status == 0:
     print('Current build is: ' + current_build + 'Newer build '+ latest_build + ' available, pulling reposistory')
     g.pull()
     print('Restarting container ' + ha_container_name)
@@ -64,4 +61,5 @@ if int(current_build) < int(latest_build) and build_status == 'passed':
     fo.write(latest_build + '\n')
     fo.close()
 else:
-   print("No newer build available, nothing to do")
+   print("No newer build available or build failed,  nothing to do")
+
