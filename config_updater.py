@@ -7,12 +7,6 @@ import requests
 #                                                                                                              #
 # Python script to check for a new build off your HomeAssistant config, pull repo and restart docker container #
 #                                                                                                              #
-# Create a Travis access token with the following scopes:                                                      #
-# read:org                                                                                                     #
-# user:email                                                                                                   #
-# repo_deployment                                                                                              #
-# repo:status                                                                                                  #
-# write:repo_hook                                                                                              #
 ################################################################################################################
 
 # config start
