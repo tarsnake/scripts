@@ -1,3 +1,5 @@
+# modified from https://github.com/wpeterw/scripts
+
 from docker import Client
 import os
 import git
