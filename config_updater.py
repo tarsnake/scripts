@@ -19,7 +19,7 @@ git_dir = '${USERDIR}/docker/homeassistant:/config'
 g = git.cmd.Git(git_dir)
 
 # travis
-github_token = '<github token>'
+github_token = '$GHTOKEN'
 travis_url = 'https://api.travis-ci.org/repos/your/repo/builds'
 
 # docker
