@@ -9,6 +9,15 @@ import requests
 #                                                                                                              #
 ################################################################################################################
 
+
+# grab env variables
+
+envfile = '/media/data/docker/.env'
+with open(envfile) as f:
+    for line in f:
+        k, v = line.split('=')
+        os.environ[k] = v.strip()
+
 # config start
 
 # file to store latest build number from Travis
