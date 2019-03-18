@@ -12,14 +12,14 @@ import requests
 # config start
 
 # file to store latest build number from Travis
-file = '$USERDIR/docker/tmp/last_build.txt'
+file = os.environ['USERDIR'] + '/docker/tmp/last_build.txt'
 
 # git
-git_dir = '${USERDIR}/docker/homeassistant:/config'
+git_dir = os.environ['USERDIR'] + '/docker/homeassistant:/config'
 g = git.cmd.Git(git_dir)
 
 # travis
-github_token = '$GHTOKEN'
+github_token = os.environ['GHTOKEN']
 travis_url = 'https://api.travis-ci.org/repos/your/repo/builds'
 
 # docker
