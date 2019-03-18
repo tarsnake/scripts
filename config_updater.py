@@ -12,10 +12,10 @@ import requests
 # config start
 
 # file to store latest build number from Travis
-file = '/tmp/last_build.txt'
+file = '$USERDIR/docker/tmp/last_build.txt'
 
 # git
-git_dir = '<your home-assistant config dir'
+git_dir = '${USERDIR}/docker/homeassistant:/config'
 g = git.cmd.Git(git_dir)
 
 # travis
@@ -23,7 +23,7 @@ github_token = '<github token>'
 travis_url = 'https://api.travis-ci.org/repos/your/repo/builds'
 
 # docker
-ha_container_name = 'home-assistant'
+ha_container_name = 'homeassistant'
 cli = Client(base_url='unix://var/run/docker.sock')
 # config end
 
